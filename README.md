@@ -21,8 +21,7 @@
 - Python 3.8+
 - Redis 6.0+
 - `pip` (Python 패키지 관리자)
-- (선택) Docker & Docker Compose
-- 
+- (선택) Docker & Docker Compose 
 
 ### **🔹 2️⃣ Python 패키지 설치**
 ```bash
@@ -30,9 +29,10 @@ pip install redis aiofiles
 ```
 
 
-### **🔹 3️⃣ (선택) Docker **
+### **🔹 3️⃣ (선택) Docker**
 기본적인 Redis 이미지를 이용한 Docker compose 파일을 제공합니다.
 Redis가 존재하지 않거나 테스트 환경이 필요할 경우 실행해야 합니다.
+
 ```bash
 docker compose up -d
 ```
