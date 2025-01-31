@@ -1,8 +1,7 @@
 docker compose up -d
 
+. venv/bin/activate
 
-source venv/bin/activate
-
-python init_redis.py
+python3 init_redis.py
 
 deactivate
