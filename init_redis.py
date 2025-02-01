@@ -2,7 +2,6 @@ import os
 import asyncio
 import aiofiles
 import redis
-import time
 import sys
 
 
@@ -24,8 +23,11 @@ async def process_file(filename):
 
     if os.path.isfile(file_path):
         content = await read_file_async(file_path) 
-        await asyncio.to_thread(redis_client.set, filename, content)  
-        print(f"✅ Inserted {filename} into Redis")
+        file_key, _ = os.path.splitext(filename)
+
+        await asyncio.to_thread(redis_client.set, file_key, content)
+
+        print(f"✅ Inserted {file_key} into Redis")
 
 
 async def main(): 
@@ -33,15 +35,11 @@ async def main():
         print("⚠️ Data folder not found. Skipping data insertion.")
         sys.exit(1)
 
-    # start_time = time.time()
     tasks = [process_file(filename) for filename in os.listdir(DATA_FOLDER)]
     await asyncio.gather(*tasks)
 
-    # end_time = time.time()
-    # elapsed_time = end_time - start_time
 
     print(f"🎉 Successfully inserted {len(tasks)} files into Redis!")
-    # print(f"🕒 Total execution time: {elapsed_time:.3f} seconds")
 
 
 asyncio.run(main())
